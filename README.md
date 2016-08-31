@@ -1,4 +1,4 @@
-# Rebus.TODO
+# Rebus.CastleWindsor
 
 Provides a Castle Windsor container adapter for [Rebus](https://github.com/rebus-org/Rebus).
 
