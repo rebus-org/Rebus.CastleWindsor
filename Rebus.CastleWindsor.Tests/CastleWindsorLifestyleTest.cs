@@ -56,8 +56,8 @@ namespace Rebus.CastleWindsor.Tests
 
             var orderedStuffThatHappened = stuffThatHappened.OrderBy(s => s).ToArray();
 
-            Assert.That(orderedStuffThatHappened, 
-                Is.EqualTo(expectedSequenceOfThings), 
+            Assert.That(orderedStuffThatHappened,
+                Is.EqualTo(expectedSequenceOfThings),
                 @"Got
 {0}", string.Join(Environment.NewLine, orderedStuffThatHappened));
         }
@@ -67,20 +67,10 @@ namespace Rebus.CastleWindsor.Tests
         {
             var container = GetContainer();
 
-            try
+            using (var defaultTransactionContext = new DefaultTransactionContext())
             {
-                using (var defaultTransactionContext = new DefaultTransactionContext())
-                {
-                    AmbientTransactionContext.Current = defaultTransactionContext;
-
-                    container.Resolve<SomeHandler>();
-                    container.Resolve<AnotherHandler>();
-                }
-
-            }
-            finally
-            {
-                AmbientTransactionContext.Current = null;
+                container.Resolve<SomeHandler>();
+                container.Resolve<AnotherHandler>();
             }
         }
 
@@ -95,10 +85,10 @@ namespace Rebus.CastleWindsor.Tests
             container.Register(
                 Component.For<ConcurrentQueue<string>>().Instance(registeredThings),
                 Component.For<SharedCounter>().Instance(sharedCounter),
-                
+
                 Component.For<IHandleMessages<string>, SomeHandler>().LifestyleTransient(),
                 Component.For<IHandleMessages<string>, AnotherHandler>().LifeStyle.PerRebusMessage(),
-                
+
                 Component.For<SomeDependency>().LifestylePerRebusMessage()
                 );
 

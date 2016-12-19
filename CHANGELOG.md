@@ -23,3 +23,7 @@
 ## 2.0.1
 
 * Release 2.0.1
+
+## 3.0.0-beta01
+
+* Update to Rebus 3

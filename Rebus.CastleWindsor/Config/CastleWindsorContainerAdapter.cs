@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Threading.Tasks;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Rebus.Activation;
 using Rebus.Bus;
+using Rebus.Bus.Advanced;
 using Rebus.Extensions;
 using Rebus.Handlers;
 using Rebus.Pipeline;
@@ -60,6 +62,11 @@ namespace Rebus.Config
             _windsorContainer
                 .Register(
                     Component.For<IBus>().Instance(bus).LifestyleSingleton(),
+                    
+                    Component.For<ISyncBus>()
+                        .UsingFactoryMethod(k => k.Resolve<IBus>().Advanced.SyncBus)
+                        .LifestyleSingleton(),
+                    
                     Component.For<InstanceDisposer>(),
                   
                     Component.For<IMessageContext>()
