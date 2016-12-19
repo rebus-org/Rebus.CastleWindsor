@@ -20,6 +20,7 @@ namespace Rebus.CastleWindsor
         /// </summary>
         public static ComponentRegistration<TService> PerRebusMessage<TService>(this LifestyleGroup<TService> lifestyleGroup) where TService : class
         {
+            if (lifestyleGroup == null) throw new ArgumentNullException(nameof(lifestyleGroup));
             return lifestyleGroup.Registration.LifestylePerRebusMessage();
         }
 
@@ -28,6 +29,7 @@ namespace Rebus.CastleWindsor
         /// </summary>
         public static ComponentRegistration<TService> LifestylePerRebusMessage<TService>(this ComponentRegistration<TService> registration) where TService : class
         {
+            if (registration == null) throw new ArgumentNullException(nameof(registration));
             return registration.LifestyleScoped<RebusScopeAccessor>();
         }
 
@@ -72,12 +74,16 @@ namespace Rebus.CastleWindsor
         /// </summary>
         public static IWindsorContainer RegisterHandler<THandler>(this IWindsorContainer container) where THandler : IHandleMessages
         {
+            if (container == null) throw new ArgumentNullException(nameof(container));
             RegisterType(container, typeof(THandler), false);
             return container;
         }
 
         static IWindsorContainer RegisterAssembly(IWindsorContainer container, Assembly assemblyToRegister)
         {
+            if (container == null) throw new ArgumentNullException(nameof(container));
+            if (assemblyToRegister == null) throw new ArgumentNullException(nameof(assemblyToRegister));
+
             var typesToAutoRegister = assemblyToRegister.GetTypes()
                 .Where(type => !type.IsInterface && !type.IsAbstract)
                 .Select(type => new
@@ -97,6 +103,9 @@ namespace Rebus.CastleWindsor
 
         static void RegisterType(IWindsorContainer container, Type typeToRegister, bool auto)
         {
+            if (container == null) throw new ArgumentNullException(nameof(container));
+            if (typeToRegister == null) throw new ArgumentNullException(nameof(typeToRegister));
+
             var implementedHandlerInterfaces = GetImplementedHandlerInterfaces(typeToRegister).ToArray();
 
             if (!implementedHandlerInterfaces.Any()) return;
@@ -111,6 +120,8 @@ namespace Rebus.CastleWindsor
 
         static IEnumerable<Type> GetImplementedHandlerInterfaces(Type type)
         {
+            if (type == null) throw new ArgumentNullException(nameof(type));
+
             return type.GetInterfaces()
                 .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof (IHandleMessages<>));
         }
