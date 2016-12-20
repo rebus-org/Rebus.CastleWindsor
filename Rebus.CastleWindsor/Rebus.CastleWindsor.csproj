@@ -40,7 +40,7 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Rebus, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rebus.3.0.0-beta03\lib\NET45\Rebus.dll</HintPath>
+      <HintPath>..\packages\Rebus.3.0.0-beta04\lib\NET45\Rebus.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

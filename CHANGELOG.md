@@ -24,6 +24,6 @@
 
 * Release 2.0.1
 
-## 3.0.0-beta01
+## 3.0.0-beta02
 
 * Update to Rebus 3
