@@ -50,10 +50,10 @@
       <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Rebus, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rebus.3.0.0-beta04\lib\NET45\Rebus.dll</HintPath>
+      <HintPath>..\packages\Rebus.3.0.0\lib\NET45\Rebus.dll</HintPath>
     </Reference>
     <Reference Include="Rebus.Tests.Contracts, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rebus.Tests.Contracts.3.0.0-beta04\lib\NET45\Rebus.Tests.Contracts.dll</HintPath>
+      <HintPath>..\packages\Rebus.Tests.Contracts.3.0.0\lib\NET45\Rebus.Tests.Contracts.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
