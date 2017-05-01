@@ -67,7 +67,7 @@ namespace Rebus.CastleWindsor.Tests
         {
             var container = GetContainer();
 
-            using (var defaultTransactionContext = new DefaultTransactionContextScope())
+            using (var scope = new RebusTransactionScope())
             {
                 container.Resolve<SomeHandler>();
                 container.Resolve<AnotherHandler>();

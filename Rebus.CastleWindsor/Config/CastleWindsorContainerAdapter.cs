@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Threading.Tasks;
 using Castle.MicroKernel.Registration;
