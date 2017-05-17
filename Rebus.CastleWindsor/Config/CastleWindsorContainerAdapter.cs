@@ -29,8 +29,7 @@ namespace Rebus.Config
         /// </summary>
         public CastleWindsorContainerAdapter(IWindsorContainer windsorContainer)
         {
-            if (windsorContainer == null) throw new ArgumentNullException(nameof(windsorContainer));
-            _windsorContainer = windsorContainer;
+            _windsorContainer = windsorContainer ?? throw new ArgumentNullException(nameof(windsorContainer));
         }
 
         /// <summary>
@@ -58,16 +57,21 @@ namespace Rebus.Config
         {
             if (bus == null) throw new ArgumentNullException(nameof(bus), "You need to provide a bus instance in order to call this method!");
 
+            if (_windsorContainer.Kernel.HasComponent(typeof(IBus)))
+            {
+                throw new InvalidOperationException("An IBus service is already registered in this container. If you want to host multiple Rebus instances in a single process, please use separate container instances for them.");
+            }
+
             _windsorContainer
                 .Register(
                     Component.For<IBus>().Instance(bus).LifestyleSingleton(),
-                    
+
                     Component.For<ISyncBus>()
                         .UsingFactoryMethod(k => k.Resolve<IBus>().Advanced.SyncBus)
                         .LifestyleSingleton(),
-                    
+
                     Component.For<InstanceDisposer>(),
-                  
+
                     Component.For<IMessageContext>()
                         .UsingFactoryMethod(k =>
                         {
@@ -105,12 +109,12 @@ namespace Rebus.Config
         List<IHandleMessages<TMessage>> GetAllHandlerInstances<TMessage>()
         {
             var handledMessageTypes = typeof(TMessage).GetBaseTypes()
-                .Concat(new[]{typeof(TMessage)});
+                .Concat(new[] { typeof(TMessage) });
 
             return handledMessageTypes
                 .SelectMany(handledMessageType =>
                 {
-                    var implementedInterface = typeof (IHandleMessages<>).MakeGenericType(handledMessageType);
+                    var implementedInterface = typeof(IHandleMessages<>).MakeGenericType(handledMessageType);
 
                     return _windsorContainer.ResolveAll(implementedInterface).Cast<IHandleMessages>();
                 })
