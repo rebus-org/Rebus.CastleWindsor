@@ -28,8 +28,9 @@
 
 * Update to Rebus 3
 
-## 4.0.0-b03
+## 4.0.0-b04
 
 * Update to Rebus 4
 * Upgrade to new project structure
 * Update deps to b10
+* Remove auto-registration method that could be tricked by aggressive inlining

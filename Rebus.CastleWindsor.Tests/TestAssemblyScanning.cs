@@ -14,7 +14,7 @@ namespace Rebus.CastleWindsor.Tests
         {
             var container = new WindsorContainer();
 
-            container.AutoRegisterHandlersFromThisAssembly();
+            container.AutoRegisterHandlersFromAssemblyOf<TestAssemblyScanning>();
 
             var secretHandlers = container.ResolveAll<IHandleMessages<Secret>>();
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Registration.Lifestyle;
 using Castle.Windsor;
@@ -34,22 +33,9 @@ namespace Rebus.CastleWindsor
         }
 
         /// <summary>
-        /// Automatically picks up all handler types from the calling assembly and registers them in the container
-        /// </summary>
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        public static IWindsorContainer AutoRegisterHandlersFromThisAssembly(this IWindsorContainer container)
-        {
-            if (container == null) throw new ArgumentNullException(nameof(container));
-
-            var callingAssembly = Assembly.GetCallingAssembly();
-
-            return RegisterAssembly(container, callingAssembly);
-        }
-
-        /// <summary>
         /// Automatically picks up all handler types from the assembly containing <typeparamref name="THandler"/> and registers them in the container
         /// </summary>
-        public static IWindsorContainer AutoRegisterHandlersFromAssemblyOf<THandler>(this IWindsorContainer container) where THandler : IHandleMessages
+        public static IWindsorContainer AutoRegisterHandlersFromAssemblyOf<THandler>(this IWindsorContainer container)
         {
             if (container == null) throw new ArgumentNullException(nameof(container));
 
