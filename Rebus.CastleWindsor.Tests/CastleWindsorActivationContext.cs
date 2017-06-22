@@ -42,7 +42,7 @@ namespace Rebus.CastleWindsor.Tests
                 _windsorContainer = windsorContainer;
             }
 
-            public IHandlerRegistry Register<THandler>() where THandler : IHandleMessages
+            public IHandlerRegistry Register<THandler>() where THandler : class, IHandleMessages
             {
                 _windsorContainer.Register(
                     Component
