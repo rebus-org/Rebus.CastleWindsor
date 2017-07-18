@@ -28,13 +28,14 @@
 
 * Update to Rebus 3
 
-## 4.0.0-b05
+## 4.0.0-b06
 
 * Update to Rebus 4
 * Upgrade to new project structure
 * Update deps to b10
 * Remove auto-registration method that could be tricked by aggressive inlining
 * Update contracts dep - thanks [trevorreeves]
+* Upgrade to Castle Windsor 4 and thus add .NET Core support (yay!) in the form of .NET Standard 1.6
 
 [trevorreeves]: https://github.com/trevorreeves
 

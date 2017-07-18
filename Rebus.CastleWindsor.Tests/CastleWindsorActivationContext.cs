@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Rebus.Activation;
@@ -33,9 +34,9 @@ namespace Rebus.CastleWindsor.Tests
             return configureBus(Configure.With(new CastleWindsorContainerAdapter(windsorContainer))).Start();
         }
 
-        private class HandlerRegistry : IHandlerRegistry
+        class HandlerRegistry : IHandlerRegistry
         {
-            private readonly WindsorContainer _windsorContainer;
+            readonly WindsorContainer _windsorContainer;
 
             public HandlerRegistry(WindsorContainer windsorContainer)
             {
@@ -54,11 +55,17 @@ namespace Rebus.CastleWindsor.Tests
                 return this;
             }
 
-            Type[] GetHandlerInterfaces(Type type)
+            static Type[] GetHandlerInterfaces(Type type)
             {
+#if NET45
                 return type.GetInterfaces()
                     .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IHandleMessages<>))
                     .ToArray();
+#else
+                return type.GetTypeInfo().GetInterfaces()
+                    .Where(i => i.GetTypeInfo().IsGenericType && i.GetGenericTypeDefinition() == typeof(IHandleMessages<>))
+                    .ToArray();
+#endif
             }
         }
 
