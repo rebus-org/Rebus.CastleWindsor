@@ -5,6 +5,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rebus</RootNamespace>
     <AssemblyName>Rebus.CastleWindsor</AssemblyName>
+    <PackageId>Rebus.Castle.Windsor</PackageId>
     <TargetFrameworks>net45;netstandard1.6</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Authors>mookid8000</Authors>
