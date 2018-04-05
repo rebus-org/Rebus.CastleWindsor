@@ -36,5 +36,9 @@
 * Update contracts dep - thanks [trevorreeves]
 * Upgrade to Castle Windsor 4 and thus add .NET Core support (yay!) in the form of .NET Standard 1.6
 
+## 4.1.0
+
+* Upgrade to Windsor 4.1.0
+
 [trevorreeves]: https://github.com/trevorreeves
 
