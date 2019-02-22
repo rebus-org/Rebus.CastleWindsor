@@ -6,6 +6,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Registration.Lifestyle;
 using Castle.Windsor;
 using Rebus.Handlers;
+// ReSharper disable UnusedMember.Global
 
 namespace Rebus.CastleWindsor
 {
@@ -39,11 +40,7 @@ namespace Rebus.CastleWindsor
         {
             if (container == null) throw new ArgumentNullException(nameof(container));
 
-#if NET45
             var assemblyToRegister = typeof(THandler).Assembly;
-#else
-            var assemblyToRegister = typeof(THandler).GetTypeInfo().Assembly;
-#endif
 
             return RegisterAssembly(container, assemblyToRegister);
         }
@@ -92,13 +89,8 @@ namespace Rebus.CastleWindsor
 
         static IEnumerable<Type> GetConcreteTypes(Assembly assemblyToRegister)
         {
-#if NET45
             return assemblyToRegister.GetTypes()
                 .Where(type => !type.IsInterface && !type.IsAbstract);
-#else
-            return assemblyToRegister.GetTypes()
-                .Where(type => !type.GetTypeInfo().IsInterface && !type.GetTypeInfo().IsAbstract);
-#endif
         }
 
         static void RegisterType(IWindsorContainer container, Type typeToRegister, bool auto)
@@ -122,13 +114,8 @@ namespace Rebus.CastleWindsor
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
 
-#if NET45
             return type.GetInterfaces()
                 .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof (IHandleMessages<>));
-#else
-            return type.GetInterfaces()
-                .Where(i => i.GetTypeInfo().IsGenericType && i.GetGenericTypeDefinition() == typeof(IHandleMessages<>));
-#endif
         }
     }
 }

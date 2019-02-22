@@ -40,5 +40,9 @@
 
 * Upgrade to Windsor 4.1.0
 
+## 5.0.0
+
+* Target .NET 4.5 and .NET Standard 2.0
+
 [trevorreeves]: https://github.com/trevorreeves
 

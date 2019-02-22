@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Linq;
-#if NETSTANDARD1_6
-using System.Reflection;
-#endif
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Rebus.Activation;
@@ -59,15 +56,9 @@ namespace Rebus.CastleWindsor.Tests
 
             static Type[] GetHandlerInterfaces(Type type)
             {
-#if NET45
                 return type.GetInterfaces()
                     .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IHandleMessages<>))
                     .ToArray();
-#else
-                return type.GetTypeInfo().GetInterfaces()
-                    .Where(i => i.GetTypeInfo().IsGenericType && i.GetGenericTypeDefinition() == typeof(IHandleMessages<>))
-                    .ToArray();
-#endif
             }
         }
 
