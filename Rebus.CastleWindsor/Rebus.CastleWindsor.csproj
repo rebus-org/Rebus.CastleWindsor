@@ -42,7 +42,7 @@
     <None Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="castle.windsor" Version="4.1.0" />
+    <PackageReference Include="castle.windsor" Version="5.0.0" />
     <PackageReference Include="Rebus" Version="4.0.0" />
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
