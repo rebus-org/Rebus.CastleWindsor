@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="castle.windsor" Version="5.0.0" />
-    <PackageReference Include="Rebus" Version="4.0.0" />
+    <PackageReference Include="Rebus" Version="6.0.0-b04" />
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="$(ProjectDir)..\scripts\patch_assemblyinfo.cmd $(ProjectDir)" />
