@@ -67,7 +67,7 @@ namespace Rebus.CastleWindsor.Tests
         {
             var container = GetContainer();
 
-            using (var scope = new RebusTransactionScope())
+            using (new FakeMessageContextScope())
             {
                 container.Resolve<SomeHandler>();
                 container.Resolve<AnotherHandler>();
@@ -90,7 +90,7 @@ namespace Rebus.CastleWindsor.Tests
                 Component.For<IHandleMessages<string>, AnotherHandler>().LifeStyle.PerRebusMessage(),
 
                 Component.For<SomeDependency>().LifestylePerRebusMessage()
-                );
+            );
 
             return container;
         }

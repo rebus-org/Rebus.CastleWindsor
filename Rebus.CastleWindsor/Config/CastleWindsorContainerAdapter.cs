@@ -41,13 +41,15 @@ namespace Rebus.Config
         {
             var handlerInstances = GetAllHandlerInstances<TMessage>();
 
-            transactionContext.OnDisposed(() =>
+            void DisposeInstances(ITransactionContext _)
             {
                 foreach (var instance in handlerInstances)
                 {
                     _windsorContainer.Release(instance);
                 }
-            });
+            }
+
+            transactionContext.OnDisposed(DisposeInstances);
 
             return handlerInstances;
         }

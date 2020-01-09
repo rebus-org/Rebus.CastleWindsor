@@ -27,6 +27,13 @@ Cache generic types:
     100000 resolutions took 0,7 s - that's 135853,4 /s
     100000 resolutions took 0,7 s - that's 135229,6 /s
     100000 resolutions took 0,7 s - that's 136566,6 /s
+Update to Rebus 6:
+    100000 resolutions took 0,7 s - that's 141762,3 /s
+    100000 resolutions took 0,7 s - that's 140963,6 /s
+    100000 resolutions took 0,7 s - that's 141642,6 /s
+    100000 resolutions took 0,7 s - that's 141358,6 /s
+    100000 resolutions took 0,7 s - that's 140901,2 /s
+
         */
         [TestCase(100000)]
         [Repeat(5)]

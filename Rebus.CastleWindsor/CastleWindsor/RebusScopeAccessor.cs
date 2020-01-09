@@ -23,9 +23,7 @@ namespace Rebus.CastleWindsor
 
             var items = messageContext.TransactionContext.Items;
 
-            object lifetimeScope;
-
-            if (items.TryGetValue(LifestimeScopeItemKey, out lifetimeScope))
+            if (items.TryGetValue(LifestimeScopeItemKey, out var lifetimeScope))
             {
                 return (ILifetimeScope) lifetimeScope;
             }
@@ -34,7 +32,7 @@ namespace Rebus.CastleWindsor
 
             items[LifestimeScopeItemKey] = defaultLifetimeScope;
 
-            messageContext.TransactionContext.OnDisposed(() => defaultLifetimeScope.Dispose());
+            messageContext.TransactionContext.OnDisposed(_ => defaultLifetimeScope.Dispose());
 
             return defaultLifetimeScope;
         }
