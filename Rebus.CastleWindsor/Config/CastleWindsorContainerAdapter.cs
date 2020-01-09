@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using Rebus.Extensions;
 using Rebus.Handlers;
 using Rebus.Pipeline;
 using Rebus.Transport;
+// ReSharper disable ArgumentsStyleLiteral
 
 // ReSharper disable ClassNeverInstantiated.Local
 #pragma warning disable 1998
@@ -73,7 +75,7 @@ namespace Rebus.Config
                     Component.For<InstanceDisposer>(),
 
                     Component.For<IMessageContext>()
-                        .UsingFactoryMethod(k =>
+                        .UsingFactoryMethod(kernel =>
                         {
                             var currentMessageContext = MessageContext.Current;
                             if (currentMessageContext == null)
@@ -95,29 +97,20 @@ namespace Rebus.Config
         {
             readonly IBus _bus;
 
-            public InstanceDisposer(IBus bus)
-            {
-                _bus = bus;
-            }
+            public InstanceDisposer(IBus bus) => _bus = bus ?? throw new ArgumentNullException(nameof(bus));
 
-            public void Dispose()
-            {
-                _bus.Dispose();
-            }
+            public void Dispose() => _bus.Dispose();
         }
+
+        static readonly ConcurrentDictionary<Type, Type[]> _handledMessageTypesCache = new ConcurrentDictionary<Type, Type[]>();
 
         List<IHandleMessages<TMessage>> GetAllHandlerInstances<TMessage>()
         {
-            var handledMessageTypes = typeof(TMessage).GetBaseTypes()
-                .Concat(new[] { typeof(TMessage) });
+            var implementedInterfaces = _handledMessageTypesCache
+                .GetOrAdd(typeof(TMessage), _ => typeof(TMessage).GetBaseTypes().Concat(new[] { typeof(TMessage) }).Select(type => typeof(IHandleMessages<>).MakeGenericType(type)).ToArray());
 
-            return handledMessageTypes
-                .SelectMany(handledMessageType =>
-                {
-                    var implementedInterface = typeof(IHandleMessages<>).MakeGenericType(handledMessageType);
-
-                    return _windsorContainer.ResolveAll(implementedInterface).Cast<IHandleMessages>();
-                })
+            return implementedInterfaces
+                .SelectMany(implementedInterface => _windsorContainer.ResolveAll(implementedInterface).Cast<IHandleMessages>())
                 .Cast<IHandleMessages<TMessage>>()
                 .ToList();
         }
