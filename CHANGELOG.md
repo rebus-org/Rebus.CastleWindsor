@@ -37,7 +37,7 @@
 ## 5.1.0
 * Make it twice as fast
 
-## 6.0.0-a1
+## 6.0.0
 * Update to Rebus 6
 
 [trevorreeves]: https://github.com/trevorreeves

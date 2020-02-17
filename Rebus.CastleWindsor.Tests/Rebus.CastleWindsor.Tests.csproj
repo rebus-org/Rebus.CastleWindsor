@@ -36,14 +36,14 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rebus.CastleWindsor\Rebus.CastleWindsor.csproj" />
-    <PackageReference Include="microsoft.net.test.sdk" Version="16.4.0" />
+    <PackageReference Include="microsoft.net.test.sdk" Version="16.5.0" />
     <PackageReference Include="nunit" Version="3.12.0" />
-    <PackageReference Include="nunit3testadapter" Version="3.16.0">
+    <PackageReference Include="nunit3testadapter" Version="3.16.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Rebus" Version="6.0.0-b21" />
-    <PackageReference Include="Rebus.Tests.Contracts" Version="6.0.0-b16" />
+    <PackageReference Include="Rebus" Version="6.0.0" />
+    <PackageReference Include="Rebus.Tests.Contracts" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
