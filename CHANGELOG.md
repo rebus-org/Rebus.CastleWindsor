@@ -37,5 +37,8 @@
 ## 5.1.0
 * Make it twice as fast
 
+## 5.1.1
+* Fix Rebus dependency so it references version 5.0.0
+
 [trevorreeves]: https://github.com/trevorreeves
 
