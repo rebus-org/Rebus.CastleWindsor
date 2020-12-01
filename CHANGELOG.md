@@ -40,5 +40,8 @@
 ## 6.0.0
 * Update to Rebus 6
 
+## 6.1.0
+* Change targets to .NET Standard 2.0, .NET Standard 2.1, and .NET 5
+
 [trevorreeves]: https://github.com/trevorreeves
 
