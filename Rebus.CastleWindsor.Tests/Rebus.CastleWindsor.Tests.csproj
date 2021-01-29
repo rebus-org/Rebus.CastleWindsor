@@ -37,7 +37,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Rebus.CastleWindsor\Rebus.CastleWindsor.csproj" />
     <PackageReference Include="microsoft.net.test.sdk" Version="16.8.3" />
-    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="nunit" Version="3.13.0" />
     <PackageReference Include="nunit3testadapter" Version="3.17.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
