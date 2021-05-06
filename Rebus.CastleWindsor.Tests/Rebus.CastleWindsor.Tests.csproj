@@ -5,7 +5,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rebus.CastleWindsor.Tests</RootNamespace>
     <AssemblyName>Rebus.CastleWindsor.Tests</AssemblyName>
-    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
+    <TargetFrameworks>net5.0</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Authors>mookid8000</Authors>
     <PackageLicenseUrl>https://raw.githubusercontent.com/rebus-org/Rebus/master/LICENSE.md</PackageLicenseUrl>
@@ -37,8 +37,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Rebus.CastleWindsor\Rebus.CastleWindsor.csproj" />
     <PackageReference Include="microsoft.net.test.sdk" Version="16.9.4" />
-    <PackageReference Include="Microting.Rebus" Version="7.0.1" />
-    <PackageReference Include="Microting.Rebus.Tests.Contracts" Version="7.0.1" />
+    <PackageReference Include="Microting.Rebus" Version="7.1.0" />
+    <PackageReference Include="Microting.Rebus.Tests.Contracts" Version="7.1.0" />
     <PackageReference Include="nunit" Version="3.13.2" />
     <PackageReference Include="nunit3testadapter" Version="3.17.0">
       <PrivateAssets>all</PrivateAssets>
