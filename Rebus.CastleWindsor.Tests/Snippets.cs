@@ -7,34 +7,33 @@ using Rebus.Config;
 using Rebus.Handlers;
 using Rebus.Transport.InMem;
 
-namespace Rebus.CastleWindsor.Tests
+namespace Rebus.CastleWindsor.Tests;
+
+public class Snippets
 {
-    public class Snippets
+    public class RebusInstaller : IWindsorInstaller
     {
-        public class RebusInstaller : IWindsorInstaller
+        public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            public void Install(IWindsorContainer container, IConfigurationStore store)
-            {
-                Configure.With(new CastleWindsorContainerAdapter(container))
-                    .Transport(t => t.UseInMemoryTransport(new InMemNetwork(), "bimmelim"))
-                    .Start();
-            }
+            Configure.With(new CastleWindsorContainerAdapter(container))
+                .Transport(t => t.UseInMemoryTransport(new InMemNetwork(), "bimmelim"))
+                .Start();
         }
+    }
 
-        public class RebusHandlersInstaller : IWindsorInstaller
+    public class RebusHandlersInstaller : IWindsorInstaller
+    {
+        public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            public void Install(IWindsorContainer container, IConfigurationStore store)
-            {
-                container.AutoRegisterHandlersFromAssemblyOf<SomeHandler>();
-            }
+            container.AutoRegisterHandlersFromAssemblyOf<SomeHandler>();
         }
+    }
 
-        class SomeHandler : IHandleMessages<string>
+    class SomeHandler : IHandleMessages<string>
+    {
+        public Task Handle(string message)
         {
-            public Task Handle(string message)
-            {
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
         }
     }
 }

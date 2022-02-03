@@ -8,78 +8,77 @@ using Rebus.Config;
 using Rebus.Handlers;
 using Rebus.Tests.Contracts.Activation;
 
-namespace Rebus.CastleWindsor.Tests
+namespace Rebus.CastleWindsor.Tests;
+
+public class CastleWindsorActivationContext : IActivationContext
 {
-    public class CastleWindsorActivationContext : IActivationContext
+    public IHandlerActivator CreateActivator(Action<IHandlerRegistry> handlerConfig, out IActivatedContainer container)
     {
-        public IHandlerActivator CreateActivator(Action<IHandlerRegistry> handlerConfig, out IActivatedContainer container)
+        var windsorContainer = new WindsorContainer();
+
+        handlerConfig.Invoke(new HandlerRegistry(windsorContainer));
+
+        container = new ActivatedContainer(windsorContainer);
+
+        return new CastleWindsorContainerAdapter(windsorContainer);
+    }
+
+    public IBus CreateBus(Action<IHandlerRegistry> handlerConfig, Func<RebusConfigurer, RebusConfigurer> configureBus, out IActivatedContainer container)
+    {
+        var windsorContainer = new WindsorContainer();
+
+        handlerConfig.Invoke(new HandlerRegistry(windsorContainer));
+        container = new ActivatedContainer(windsorContainer);
+
+        return configureBus(Configure.With(new CastleWindsorContainerAdapter(windsorContainer))).Start();
+    }
+
+    class HandlerRegistry : IHandlerRegistry
+    {
+        readonly WindsorContainer _windsorContainer;
+
+        public HandlerRegistry(WindsorContainer windsorContainer)
         {
-            var windsorContainer = new WindsorContainer();
-
-            handlerConfig.Invoke(new HandlerRegistry(windsorContainer));
-
-            container = new ActivatedContainer(windsorContainer);
-
-            return new CastleWindsorContainerAdapter(windsorContainer);
+            _windsorContainer = windsorContainer;
         }
 
-        public IBus CreateBus(Action<IHandlerRegistry> handlerConfig, Func<RebusConfigurer, RebusConfigurer> configureBus, out IActivatedContainer container)
+        public IHandlerRegistry Register<THandler>() where THandler : class, IHandleMessages
         {
-            var windsorContainer = new WindsorContainer();
+            _windsorContainer.Register(
+                Component
+                    .For(GetHandlerInterfaces(typeof(THandler)))
+                    .ImplementedBy<THandler>()
+                    .LifestyleTransient()
+            );
 
-            handlerConfig.Invoke(new HandlerRegistry(windsorContainer));
-            container = new ActivatedContainer(windsorContainer);
-
-            return configureBus(Configure.With(new CastleWindsorContainerAdapter(windsorContainer))).Start();
+            return this;
         }
 
-        class HandlerRegistry : IHandlerRegistry
+        static Type[] GetHandlerInterfaces(Type type)
         {
-            readonly WindsorContainer _windsorContainer;
+            return type.GetInterfaces()
+                .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IHandleMessages<>))
+                .ToArray();
+        }
+    }
 
-            public HandlerRegistry(WindsorContainer windsorContainer)
-            {
-                _windsorContainer = windsorContainer;
-            }
+    private class ActivatedContainer : IActivatedContainer
+    {
+        private readonly WindsorContainer _windsorContainer;
 
-            public IHandlerRegistry Register<THandler>() where THandler : class, IHandleMessages
-            {
-                _windsorContainer.Register(
-                    Component
-                        .For(GetHandlerInterfaces(typeof(THandler)))
-                        .ImplementedBy<THandler>()
-                        .LifestyleTransient()
-                    );
-
-                return this;
-            }
-
-            static Type[] GetHandlerInterfaces(Type type)
-            {
-                return type.GetInterfaces()
-                    .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IHandleMessages<>))
-                    .ToArray();
-            }
+        public ActivatedContainer(WindsorContainer windsorContainer)
+        {
+            _windsorContainer = windsorContainer;
         }
 
-        private class ActivatedContainer : IActivatedContainer
+        public IBus ResolveBus()
         {
-            private readonly WindsorContainer _windsorContainer;
+            return _windsorContainer.Resolve<IBus>();
+        }
 
-            public ActivatedContainer(WindsorContainer windsorContainer)
-            {
-                _windsorContainer = windsorContainer;
-            }
-
-            public IBus ResolveBus()
-            {
-                return _windsorContainer.Resolve<IBus>();
-            }
-
-            public void Dispose()
-            {
-                _windsorContainer.Dispose();
-            }
+        public void Dispose()
+        {
+            _windsorContainer.Dispose();
         }
     }
 }

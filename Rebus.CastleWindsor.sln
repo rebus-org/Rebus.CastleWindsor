@@ -1,18 +1,19 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "stuff", "stuff", "{1ABDD7C1-1F8D-402D-8692-3E4B66962DE0}"
 	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
 		CHANGELOG.md = CHANGELOG.md
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE.md = LICENSE.md
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rebus.CastleWindsor", "Rebus.CastleWindsor\Rebus.CastleWindsor.csproj", "{3CE93E26-D3C4-44B1-ADFA-6A0F8B59B9B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rebus.CastleWindsor", "Rebus.CastleWindsor\Rebus.CastleWindsor.csproj", "{3CE93E26-D3C4-44B1-ADFA-6A0F8B59B9B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rebus.CastleWindsor.Tests", "Rebus.CastleWindsor.Tests\Rebus.CastleWindsor.Tests.csproj", "{4E606ECB-FF04-4DB7-A4EE-086948D2A7CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rebus.CastleWindsor.Tests", "Rebus.CastleWindsor.Tests\Rebus.CastleWindsor.Tests.csproj", "{4E606ECB-FF04-4DB7-A4EE-086948D2A7CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,5 +32,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {728205B2-7E9B-4867-835A-E8A9D97C5EB3}
 	EndGlobalSection
 EndGlobal
