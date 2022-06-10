@@ -8,7 +8,7 @@
 		<Authors>mookid8000</Authors>
 		<PackageProjectUrl>https://rebus.fm/what-is-rebus/</PackageProjectUrl>
 		<PackageDescription>Provides a Castle Windsor container adapter for Rebus</PackageDescription>
-		<Copyright>Copyright 2012-2016</Copyright>
+		<Copyright>Copyright Rebus FM ApS 2012</Copyright>
 		<PackageTags>rebus castle castle-windsor ioc dependency-injection</PackageTags>
 		<PackageIconUrl></PackageIconUrl>
 		<RepositoryUrl>https://github.com/rebus-org/Rebus</RepositoryUrl>
